@@ -1,9 +1,10 @@
 const express = require('express');
+const { productsController } = require('../controllers');
 
 const route = express();
 
-route.get('/', (_req, res) => {
-  res.status(200).json({ message: 'Route from products' });
-});
+route.get('/', productsController.getProducts);
+
+route.get('/:id', productsController.getProductById);
 
 module.exports = route;
