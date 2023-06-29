@@ -13,7 +13,19 @@ const getSalesById = async (salesId) => {
   return { status: 'SUCCESSFUL', data: responseFromDb };
 };
 
+const insertSales = async (arrSales) => {
+  const insertId = await salesModel.insertSales();
+  arrSales.forEach(async (sale) => {
+    await salesModel.insertSalesProduct({
+      saleId: insertId, productId: sale.productId, quantity: sale.quantity,
+    });
+  });
+  const createdSales = { id: insertId, itemsSold: arrSales };
+  return { status: 'CREATED', data: createdSales };
+};
+
 module.exports = {
   getAllSales,
   getSalesById,
+  insertSales,
 };

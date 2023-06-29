@@ -7,4 +7,9 @@ route.get('/', salesController.getSales);
 
 route.get('/:id', salesController.getSalesById);
 
+route.post(
+  '/',
+  salesController.postSales,
+);
+
 module.exports = route;

@@ -2,7 +2,15 @@ const { expect } = require('chai');
 const sinon = require('sinon');
 const connection = require('../../../src/models/connection');
 const { salesModel } = require('../../../src/models');
-const { salesFromDb, salesFromModel, salesFindByIdDb, salesFindByIdModel } = require('../mock/sales.mock');
+const {
+  salesFromDb,
+  salesFromModel,
+  salesFindByIdDb,
+  salesFindByIdModel,
+  addSalesInModel,
+  inputData,
+  addSalesInDb,
+} = require('../mock/sales.mock');
 
 describe('Realizando testes - SALES MODEL:', function () {
   it('Recupereando todas as vendas do banco de dados', async function () {
@@ -31,6 +39,21 @@ describe('Realizando testes - SALES MODEL:', function () {
     expect(responseFromDb).to.be.deep.equal([]);
   });
   
+  it('Testa se é possivel cadastrar uma venda', async function () {
+    sinon.stub(connection, 'execute').resolves([{ insertId: 4 }]);
+    const responseFromDb = await salesModel.insertSales();
+    const inputModel = 4;
+    expect(responseFromDb).to.be.equal(inputModel);
+  });
+  
+  it('Testa se a função connection.execute foi chamada com os parâmetros certos', async function () {
+    sinon.stub(connection, 'execute').resolves(addSalesInDb);
+    const responseFromDb = await salesModel.insertSalesProduct(inputData);
+    
+    expect(responseFromDb[0]).to.be.deep.equal(addSalesInModel[0]);
+    expect(responseFromDb[1]).to.be.equal(undefined);
+  });
+
   afterEach(function () {
     sinon.restore();
   });

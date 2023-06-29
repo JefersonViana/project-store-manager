@@ -68,9 +68,42 @@ const salesFindByIdModel = [
   },
 ];
 
+const inputData = {
+  saleId: 3,
+  productId: 1,
+  quantity: 1,
+};
+
+const addSalesInDb = [
+  {
+    fieldCount: 0,
+    affectedRows: 1,
+    insertId: 0,
+    info: '',
+    serverStatus: 2,
+    warningStatus: 0,
+  },
+  undefined,
+];
+
+const addSalesInModel = [
+  {
+    fieldCount: 0,
+    affectedRows: 1,
+    insertId: 0,
+    info: '',
+    serverStatus: 2,
+    warningStatus: 0,
+  },
+  undefined,
+];
+
 module.exports = {
   salesFromDb,
   salesFromModel,
   salesFindByIdDb,
   salesFindByIdModel,
+  inputData,
+  addSalesInModel,
+  addSalesInDb,
 };

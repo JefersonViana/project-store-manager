@@ -30,9 +30,26 @@ const findById = async (salesId) => {
   return results;
 };
 
-findById(1);
+const insertSales = async () => {
+  const [{ insertId }] = await connection.execute(
+    'INSERT INTO StoreManager.sales () VALUES ();',
+  );
+  return insertId;
+};
+
+const insertSalesProduct = async (saleProductObject) => {
+  const { saleId, productId, quantity } = saleProductObject;
+  // const [{ affectedRows }] = SE PRECISAR POSSO USAR PARA VALIDAR SE ALGUMA LINHA FOI ALTERADA. 
+  const responseFromDb = await connection.execute(
+    'INSERT INTO StoreManager.sales_products (sale_id, product_id, quantity) VALUES (?, ?, ?);',
+    [saleId, productId, quantity],
+  );
+  return responseFromDb;
+};
 
 module.exports = {
   findAll,
   findById,
+  insertSales,
+  insertSalesProduct,
 };
