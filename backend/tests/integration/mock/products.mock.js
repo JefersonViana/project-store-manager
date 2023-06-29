@@ -28,7 +28,19 @@ const productsFromModel = [
   },
 ];
 
+const productFindByIdDb = {
+  id: 1,
+  name: 'Martelo de Thor',
+};
+
+const productFindByIdModel = {
+  id: 1,
+  name: 'Martelo de Thor',
+};
+
 module.exports = {
   productsFromDb,
   productsFromModel,
+  productFindByIdDb,
+  productFindByIdModel,
 };

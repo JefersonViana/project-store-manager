@@ -5,7 +5,7 @@ const { salesModel } = require('../../../src/models');
 const { salesFromDb, salesFromModel, salesFindByIdDb, salesFindByIdModel } = require('../mock/sales.mock');
 
 describe('Realizando testes - SALES MODEL:', function () {
-  it('Recupereando todos os produtos do banco de dados', async function () {
+  it('Recupereando todas as vendas do banco de dados', async function () {
     sinon.stub(connection, 'execute').resolves([salesFromDb]);
     const responseFromDb = await salesModel.findAll();
 
@@ -14,7 +14,7 @@ describe('Realizando testes - SALES MODEL:', function () {
     expect(responseFromDb).to.be.deep.equal(salesFromModel);
   });
 
-  it('Recupereando um produto do banco de dados pelo /:id', async function () {
+  it('Recupereando uma venda do banco de dados pelo /:id', async function () {
     sinon.stub(connection, 'execute').resolves([salesFindByIdDb]);
     const responseFromDb = await salesModel.findById(1);
     
@@ -23,9 +23,9 @@ describe('Realizando testes - SALES MODEL:', function () {
     expect(responseFromDb).to.be.deep.equal(salesFindByIdModel);
   });
 
-  it('Testa se retorna false caso id não seja passado', async function () {
+  it('Testa se retorna um array vazio caso id não seja passado', async function () {
     sinon.stub(connection, 'execute').resolves([[]]);
-    const responseFromDb = await salesModel.findById(1);
+    const responseFromDb = await salesModel.findById();
     
     expect(responseFromDb).to.have.lengthOf(0);
     expect(responseFromDb).to.be.deep.equal([]);

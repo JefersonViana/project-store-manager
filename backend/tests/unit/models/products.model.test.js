@@ -23,10 +23,10 @@ describe('Realizando testes - PRODUCTS MODEL:', function () {
   });
 
   it('Testa se retorna false caso id não seja passado', async function () {
-    sinon.stub(connection, 'execute').resolves([[false]]);
+    sinon.stub(connection, 'execute').resolves([[]]);
     const responseFromDb = await productsModel.findById();
     
-    expect(responseFromDb).to.be.equal(false);
+    expect(responseFromDb).to.be.equal(undefined);
   });
   
   afterEach(function () {

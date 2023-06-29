@@ -2,9 +2,6 @@ const { salesModel } = require('../models');
 
 const getAllSales = async () => {
   const responseFromDb = await salesModel.findAll();
-  if (!responseFromDb) {
-    return { status: 'SUCCESSFUL', data: [] };
-  }
   return { status: 'SUCCESSFUL', data: responseFromDb };
 };
 
