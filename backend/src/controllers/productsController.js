@@ -13,8 +13,7 @@ const getProductById = async (req, res) => {
 };
 
 const postProducts = async (req, res) => {
-  const { name } = req.body;
-  const { status, data } = await productService.insertProduct(name);
+  const { status, data } = await productService.insertProduct(req.body);
   return res.status(mapStatusHTTP(status)).json(data);
 };
 
