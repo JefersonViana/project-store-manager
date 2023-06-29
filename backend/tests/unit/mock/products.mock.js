@@ -28,7 +28,37 @@ const productsFromModel = [
   },
 ];
 
+const responseServiceAll = {
+  status: 'SUCCESSFUL',
+  data: productsFromModel,
+};
+
+const productByIdDb = {
+  id: 1,
+  name: 'Martelo de Thor',
+};
+
+const productByIdModel = {
+  id: 1,
+  name: 'Martelo de Thor',
+};
+
+const responseServiceById = {
+  status: 'SUCCESSFUL',
+  data: productByIdModel,
+};
+
+const responseServiceNotFound = {
+  status: 'NOT_FOUND',
+  data: { message: 'Product not found' },
+};
+
 module.exports = {
   productsFromDb,
   productsFromModel,
+  responseServiceAll,
+  productByIdDb,
+  responseServiceById,
+  responseServiceNotFound,
+  productByIdModel,
 };

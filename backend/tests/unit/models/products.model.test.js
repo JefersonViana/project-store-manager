@@ -28,6 +28,13 @@ describe('Realizando testes - PRODUCTS MODEL:', function () {
     
     expect(responseFromDb).to.be.equal(undefined);
   });
+
+  it('Testa se é possivel adicionar um produto com sucesso!', async function () {
+    sinon.stub(connection, 'execute').resolves([{ insertId: 3 }]);
+    const responseFromDb = await productsModel.insert('Robô');
+    
+    expect(responseFromDb).to.be.equal(3);
+  });
   
   afterEach(function () {
     sinon.restore();
