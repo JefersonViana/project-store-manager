@@ -13,8 +13,7 @@ const getSalesById = async (req, res) => {
 };
 
 const postSales = async (req, res) => {
-  const { body } = req;
-  const { status, data } = await salesService.insertSales(body);
+  const { status, data } = await salesService.insertSales(req.body);
   return res.status(mapStatusHTTP(status)).json(data);
 };
 

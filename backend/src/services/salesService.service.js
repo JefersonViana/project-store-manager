@@ -1,4 +1,5 @@
-const { salesModel } = require('../models');
+const schema = require('./validations/validationsInputValues');
+const { salesModel, productsModel } = require('../models');
 
 const getAllSales = async () => {
   const responseFromDb = await salesModel.findAll();
@@ -13,7 +14,22 @@ const getSalesById = async (salesId) => {
   return { status: 'SUCCESSFUL', data: responseFromDb };
 };
 
+const productExist = async (array) => {
+  const response = await Promise.all(array.map(async ({ productId }) => {
+    const product = await productsModel.findById(productId);
+    console.log('product', typeof product);
+    return typeof product === 'object';
+  }));
+  return response.every((bolean) => bolean === true);
+};
+
 const insertSales = async (arrSales) => {
+  const error = schema.validateSalesCreation(arrSales);
+  if (error) return { status: error.status, data: { message: error.message } };
+
+  const productExists = await productExist(arrSales);
+  if (!productExists) return { status: 'NOT_FOUND', data: { message: 'Product not found' } };
+
   const insertId = await salesModel.insertSales();
   arrSales.forEach(async (sale) => {
     await salesModel.insertSalesProduct({
