@@ -20,4 +20,6 @@ route.put(
   productsController.putProduct,
 );
 
+route.delete('/:id', productsController.deleteProduct);
+
 module.exports = route;
