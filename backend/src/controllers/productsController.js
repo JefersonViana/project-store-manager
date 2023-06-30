@@ -17,8 +17,16 @@ const postProducts = async (req, res) => {
   return res.status(mapStatusHTTP(status)).json(data);
 };
 
+const putProduct = async (req, res) => {
+  const { id } = req.params;
+  const { name } = req.body;
+  const { status, data } = await productService.updateProduct({ name, id });
+  return res.status(mapStatusHTTP(status)).json(data);
+};
+
 module.exports = {
   getProducts,
   getProductById,
   postProducts,
+  putProduct,
 };
