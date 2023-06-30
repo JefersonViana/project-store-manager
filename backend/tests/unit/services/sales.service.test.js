@@ -6,8 +6,8 @@ const {
   salesFindByIdDb,
   responseServiceAll,
   responseServiceById,
-  inputDataService,
-  responseDataService,
+  // inputDataService,
+  // responseDataService,
 } = require('../mock/sales.mock');
 const { salesModel } = require('../../../src/models');
 
