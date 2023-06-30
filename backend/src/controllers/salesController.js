@@ -17,8 +17,19 @@ const postSales = async (req, res) => {
   return res.status(mapStatusHTTP(status)).json(data);
 };
 
+const deleteSales = async (req, res) => {
+  const { id } = req.params;
+  const { status, data } = await salesService.deleteSales(id);
+  if (status === 'DELETED') {
+    return res.sendStatus(204);
+  }
+  
+  return res.status(mapStatusHTTP(status)).json(data);
+};
+
 module.exports = {
   getSales,
   getSalesById,
   postSales,
+  deleteSales,
 };

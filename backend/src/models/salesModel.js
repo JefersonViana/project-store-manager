@@ -30,6 +30,14 @@ const findById = async (salesId) => {
   return results;
 };
 
+const saleFindById = async (id) => {
+  const [[results]] = await connection.execute(
+    'SELECT * FROM StoreManager.sales WHERE id = ?;',
+    [id],
+  );
+  return results;
+};
+
 const insertSales = async () => {
   const [{ insertId }] = await connection.execute(
     'INSERT INTO StoreManager.sales () VALUES ();',
@@ -47,9 +55,19 @@ const insertSalesProduct = async (saleProductObject) => {
   return responseFromDb;
 };
 
+const deleteById = async (id) => {
+  const results = await connection.execute(
+    'DELETE FROM StoreManager.sales WHERE id = ?;',
+    [id],
+  );
+  return results;
+};
+
 module.exports = {
   findAll,
   findById,
   insertSales,
   insertSalesProduct,
+  deleteById,
+  saleFindById,
 };

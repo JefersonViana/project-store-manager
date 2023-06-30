@@ -66,6 +66,50 @@ describe('Realizando testes - PRODUCTS SERVICE:', function () {
     expect(responseFromService.data).to.be.deep.equal({ message: '"name" length must be at least 5 characters long' });
   });
 
+  it('Testa se é possivel atualizar um produto em service.', async function () {
+    sinon.stub(schema, 'validateProductCreation').returns(undefined);
+    sinon.stub(productsModel, 'findById').resolves({ name: 'Quebra cabeça', id: 1 });
+    sinon.stub(productsModel, 'updateById').resolves({ name: 'Quebra cabeça', id: 1 });
+    const responseFromService = await productService.updateProduct({ name: 'Martelo de Thor', id: 1 });
+    
+    expect(responseFromService.status).to.be.equal('SUCCESSFUL');
+    expect(responseFromService.data).to.be.deep.equal({ id: 1, name: 'Martelo de Thor' });
+  });
+
+  it('Testa se é impossivel atualizar um produto em service caso ele não exista.', async function () {
+    sinon.stub(schema, 'validateProductCreation').returns(undefined);
+    sinon.stub(productsModel, 'findById').resolves(undefined);
+    const responseFromService = await productService.updateProduct({ name: 'Machado de Thor', id: 10 });
+    
+    expect(responseFromService.status).to.be.equal('NOT_FOUND');
+    expect(responseFromService.data).to.be.deep.equal({ message: 'Product not found' });
+  });
+
+  it('Testa se é impossivel atualizar um produto em service caso não seja passado a propriedade name com pelo menos 5 caracter.', async function () {
+    sinon.stub(schema, 'validateProductCreation').returns({ status: 'INVALID_VALUE', message: '"name" length must be at least 5 characters long' });
+    const responseFromService = await productService.updateProduct({ name: 'Thor', id: 10 });
+    
+    expect(responseFromService.status).to.be.equal('INVALID_VALUE');
+    expect(responseFromService.data).to.be.deep.equal({ message: '"name" length must be at least 5 characters long' });
+  });
+
+  it('Testa se é possivel deletar um produto em service.', async function () {
+    sinon.stub(productsModel, 'findById').resolves({ name: 'Quebra cabeça', id: 1 });
+    sinon.stub(productsModel, 'deleteById').resolves({ name: 'Quebra cabeça', id: 1 });
+    const responseFromService = await productService.deleteProduct(1);
+    
+    expect(responseFromService.status).to.be.equal('DELETED');
+    expect(responseFromService).to.be.deep.equal({ status: 'DELETED' });
+  });
+
+  it('Testa se é impossivel deletar um produto em service caso ele não exista.', async function () {
+    sinon.stub(productsModel, 'findById').resolves(undefined);
+    const responseFromService = await productService.deleteProduct(1);
+    
+    expect(responseFromService.status).to.be.equal('NOT_FOUND');
+    expect(responseFromService.data).to.be.deep.equal({ message: 'Product not found' });
+  });
+
   afterEach(function () {
     sinon.restore();
   });

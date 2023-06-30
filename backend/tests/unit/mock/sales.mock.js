@@ -149,6 +149,17 @@ const inputDataService = [
   },
 ];
 
+const inputDataServiceFail = [
+  {
+    productId: 0,
+    quantity: 1,
+  },
+  {
+    productId: 2,
+    quantity: 5,
+  },
+];
+
 const responseDataService = {
   status: 'CREATED',
   data: {
@@ -178,4 +189,5 @@ module.exports = {
   responseServiceById,
   inputDataService,
   responseDataService,
+  inputDataServiceFail,
 };

@@ -53,6 +53,30 @@ const responseServiceNotFound = {
   data: { message: 'Product not found' },
 };
 
+const updateProductDb = [
+  {
+    fieldCount: 0,
+    affectedRows: 1,
+    insertId: 0,
+    info: '',
+    serverStatus: 2,
+    warningStatus: 0,
+  },
+  undefined,
+];
+
+const updateProductModel = [
+  {
+    fieldCount: 0,
+    affectedRows: 1,
+    insertId: 0,
+    info: '',
+    serverStatus: 2,
+    warningStatus: 0,
+  },
+  undefined,
+];
+
 module.exports = {
   productsFromDb,
   productsFromModel,
@@ -61,4 +85,6 @@ module.exports = {
   responseServiceById,
   responseServiceNotFound,
   productByIdModel,
+  updateProductDb,
+  updateProductModel,
 };

@@ -23,7 +23,8 @@ const insertProduct = async (productDataObject) => {
   return { status: 'CREATED', data: createdProduct };
 };
 
-const updateProduct = async ({ name, id }) => {
+const updateProduct = async (updateObject) => {
+  const { name, id } = updateObject;
   const error = schema.validateProductCreation({ name });
   if (error) return { status: error.status, data: { message: error.message } };
 
@@ -31,8 +32,8 @@ const updateProduct = async ({ name, id }) => {
   if (!productExist) return { status: 'NOT_FOUND', data: { message: 'Product not found' } };
 
   await productsModel.updateById(name, id);
-  const responseFromDb = await productsModel.findById(id);
-  return { status: 'SUCCESSFUL', data: responseFromDb };
+  // const responseFromDb = await productsModel.findById(id);
+  return { status: 'SUCCESSFUL', data: { id: Number(id), name } };
 };
 
 const deleteProduct = async (id) => {

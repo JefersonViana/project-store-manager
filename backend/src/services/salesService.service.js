@@ -40,8 +40,18 @@ const insertSales = async (arrSales) => {
   return { status: 'CREATED', data: createdSales };
 };
 
+const deleteSales = async (id) => {
+  const saleExist = await salesModel.saleFindById(id);
+  if (!saleExist) return { status: 'NOT_FOUND', data: { message: 'Sale not found' } };
+
+  await salesModel.deleteById(id);
+  return { status: 'DELETED' };
+};
+
 module.exports = {
   getAllSales,
   getSalesById,
   insertSales,
+  productExist,
+  deleteSales,
 };

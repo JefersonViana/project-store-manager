@@ -22,17 +22,19 @@ const insert = async (nameProduct) => {
 };
 
 const updateById = async (name, id) => {
-  await connection.execute(
+  const results = await connection.execute(
     'UPDATE StoreManager.products SET name = ? WHERE id = ?;',
     [name, id],
   );
+  return results;
 };
 
 const deleteById = async (id) => {
-  await connection.execute(
+  const results = await connection.execute(
     'DELETE FROM StoreManager.products WHERE id = ?;',
     [id],
   );
+  return results;
 };
 
 module.exports = {
