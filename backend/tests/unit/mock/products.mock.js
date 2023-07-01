@@ -1,7 +1,8 @@
+const THOR = 'Martelo de Thor';
 const productsFromDb = [
   {
     id: 1,
-    name: 'Martelo de Thor',
+    name: THOR,
   },
   {
     id: 2,
@@ -16,7 +17,7 @@ const productsFromDb = [
 const productsFromModel = [
   {
     id: 1,
-    name: 'Martelo de Thor',
+    name: THOR,
   },
   {
     id: 2,
@@ -35,12 +36,12 @@ const responseServiceAll = {
 
 const productByIdDb = {
   id: 1,
-  name: 'Martelo de Thor',
+  name: THOR,
 };
 
 const productByIdModel = {
   id: 1,
-  name: 'Martelo de Thor',
+  name: THOR,
 };
 
 const responseServiceById = {
@@ -77,8 +78,24 @@ const updateProductModel = [
   undefined,
 ];
 
+const queryForService = [
+  {
+    id: 1,
+    name: THOR,
+  },
+];
+
+const queryForController = [
+  {
+    id: 1,
+    name: THOR,
+  },
+];
+
 module.exports = {
   productsFromDb,
+  queryForService,
+  queryForController,
   productsFromModel,
   responseServiceAll,
   productByIdDb,
