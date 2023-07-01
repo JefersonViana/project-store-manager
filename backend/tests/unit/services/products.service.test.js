@@ -110,6 +110,14 @@ describe('Realizando testes - PRODUCTS SERVICE:', function () {
     expect(responseFromService.data).to.be.deep.equal({ message: 'Product not found' });
   });
 
+  it('Testa se é possível buscar um produto pelo termo "Thor".', async function () {
+    sinon.stub(productsModel, 'getForQuery').resolves([{ id: 1, name: 'Martelo de Thor' }]);
+    const responseFromService = await productService.getByForQuery('Thor');
+    
+    expect(responseFromService.status).to.be.equal('SUCCESSFUL');
+    expect(responseFromService.data).to.be.deep.equal([{ id: 1, name: 'Martelo de Thor' }]);
+  });
+
   afterEach(function () {
     sinon.restore();
   });

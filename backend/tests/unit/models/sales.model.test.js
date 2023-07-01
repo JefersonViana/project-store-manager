@@ -10,6 +10,7 @@ const {
   addSalesInModel,
   inputData,
   addSalesInDb,
+  responseServiceAll,
 } = require('../mock/sales.mock');
 
 describe('Realizando testes - SALES MODEL:', function () {
@@ -46,12 +47,44 @@ describe('Realizando testes - SALES MODEL:', function () {
     expect(responseFromDb).to.be.equal(inputModel);
   });
   
-  it('Testa se a função connection.execute foi chamada com os parâmetros certos', async function () {
+  it('Testa se é adicionar uma venda.', async function () {
     sinon.stub(connection, 'execute').resolves(addSalesInDb);
     const responseFromDb = await salesModel.insertSalesProduct(inputData);
     
     expect(responseFromDb[0]).to.be.deep.equal(addSalesInModel[0]);
     expect(responseFromDb[1]).to.be.equal(undefined);
+  });
+  
+  it('Testa se ao chama a  função passando o saleId e productId retorna uma venda cadastrada.', async function () {
+    sinon.stub(connection, 'execute').resolves([[responseServiceAll.data[1]]]);
+    const responseFromDb = await salesModel.findSaleByIdWithProductId({ saleId: 1, productId: 2 });
+    
+    expect(responseFromDb).to.be.deep.equal(responseServiceAll.data[1]);
+    expect(responseFromDb).to.be.an('object');
+  });
+  
+  it('Testa se existe uma venda com o id corretamente.', async function () {
+    sinon.stub(connection, 'execute').resolves([[{ id: 2, date: '2023-06-29T00:18:04.000Z' }]]);
+    const responseFromDb = await salesModel.saleFindById(2);
+    
+    expect(responseFromDb).to.be.deep.equal({ id: 2, date: '2023-06-29T00:18:04.000Z' });
+    expect(responseFromDb).to.be.an('object');
+  });
+  
+  it('Testa se foi cadastrado uma venda com sucesso.', async function () {
+    sinon.stub(connection, 'execute').resolves([{ affectedRows: 1 }]);
+    const responseFromDb = await salesModel.updateQuantitySale(2);
+    
+    expect(responseFromDb).to.be.equal(1);
+    expect(responseFromDb).to.be.an('number');
+  });
+  
+  it('Testa se é possível deletar uma venda com sucesso.', async function () {
+    sinon.stub(connection, 'execute').resolves([addSalesInDb]);
+    const responseFromDb = await salesModel.deleteById(2);
+    
+    expect(responseFromDb).to.be.deep.equal([addSalesInModel]);
+    expect(responseFromDb).to.be.an('array');
   });
 
   afterEach(function () {

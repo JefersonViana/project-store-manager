@@ -40,6 +40,20 @@ const insertSales = async (arrSales) => {
   return { status: 'CREATED', data: createdSales };
 };
 
+const updateQuantitySales = async ({ saleId, productId, quantity }) => {
+  const error = schema.validateUpdateSalesQuantity(quantity);
+  if (error) return { status: error.status, data: { message: error.message } };
+
+  const prodExist = await productsModel.findById(productId);
+  if (!prodExist) return { status: 'NOT_FOUND', data: { message: 'Product not found in sale' } };
+
+  const saleExist = await salesModel.updateQuantitySale({ quantity, saleId, productId });
+  if (saleExist < 1) return { status: 'NOT_FOUND', data: { message: 'Sale not found' } };
+
+  const responseModel = await salesModel.findSaleByIdWithProductId({ saleId, productId });
+  return { status: 'SUCCESSFUL', data: responseModel };
+};
+
 const deleteSales = async (id) => {
   const saleExist = await salesModel.saleFindById(id);
   if (!saleExist) return { status: 'NOT_FOUND', data: { message: 'Sale not found' } };
@@ -54,4 +68,5 @@ module.exports = {
   insertSales,
   productExist,
   deleteSales,
+  updateQuantitySales,
 };

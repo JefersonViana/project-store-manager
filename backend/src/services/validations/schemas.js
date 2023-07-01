@@ -12,8 +12,11 @@ const salesProducts = Joi.object({
 });
 
 const addSalesSchema = Joi.array().items(salesProducts);
+const updateQuantity = Joi.number().integer().min(1)
+  .message('"quantity" must be greater than or equal to 1');
 
 module.exports = {
   addProductSchema,
   addSalesSchema,
+  updateQuantity,
 };

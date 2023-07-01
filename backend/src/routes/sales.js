@@ -1,6 +1,9 @@
 const express = require('express');
 const { salesController } = require('../controllers');
-const validateSalesProperties = require('../middlewares/validateSalesProperties');
+const {
+  validateSalesProperties,
+  validateUpdateSalesProperty,
+} = require('../middlewares/validateSalesProperties');
 
 const route = express();
 
@@ -12,6 +15,12 @@ route.post(
   '/',
   validateSalesProperties,
   salesController.postSales,
+);
+
+route.put(
+  '/:saleId/products/:productId/quantity',
+  validateUpdateSalesProperty,
+  salesController.updateSales,
 );
 
 route.delete('/:id', salesController.deleteSales);

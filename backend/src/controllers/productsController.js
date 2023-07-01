@@ -6,6 +6,16 @@ const getProducts = async (_req, res) => {
   return res.status(mapStatusHTTP(status)).json(data);
 };
 
+const getByQuery = async (req, res) => {
+  const { q } = req.query;
+  const {
+    status,
+    data,
+  } = q ? await productService.getByForQuery(q) : await productService.getAllProducts();
+
+  return res.status(mapStatusHTTP(status)).json(data);
+};
+
 const getProductById = async (req, res) => {
   const { id } = req.params;
   const { status, data } = await productService.getProductsById(id);
@@ -40,4 +50,5 @@ module.exports = {
   postProducts,
   putProduct,
   deleteProduct,
+  getByQuery,
 };

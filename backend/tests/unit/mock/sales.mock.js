@@ -177,6 +177,13 @@ const responseDataService = {
   },
 };
 
+const updateQuantityService = {
+  saleId: 1,
+  productId: 2,
+  quantity: 75,
+  date: '2023-07-01T17:35:31.000Z',
+};
+
 module.exports = {
   salesFromDb,
   salesFromModel,
@@ -190,4 +197,5 @@ module.exports = {
   inputDataService,
   responseDataService,
   inputDataServiceFail,
+  updateQuantityService,
 };

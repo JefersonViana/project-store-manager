@@ -49,6 +49,13 @@ describe('Realizando testes - PRODUCTS MODEL:', function () {
     
     expect(responseFromDb).to.be.deep.equal(updateProductModel);
   });
+
+  it('Testa se é possivel fazer a buscar de um produto pelo termo: "Thor".', async function () {
+    sinon.stub(connection, 'execute').resolves([[{ id: 1, name: 'Martelo de Thor' }]]);
+    const responseFromDb = await productsModel.getForQuery('Thor');
+    
+    expect(responseFromDb).to.be.deep.equal([{ id: 1, name: 'Martelo de Thor' }]);
+  });
   
   afterEach(function () {
     sinon.restore();

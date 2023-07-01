@@ -6,6 +6,11 @@ const getAllProducts = async () => {
   return { status: 'SUCCESSFUL', data: responseFromDb };
 };
 
+const getByForQuery = async (query) => {
+  const responseFromDb = await productsModel.getForQuery(query);
+  return { status: 'SUCCESSFUL', data: responseFromDb };
+};
+
 const getProductsById = async (productId) => {
   const responseFromDb = await productsModel.findById(productId);
   if (!responseFromDb) {
@@ -50,4 +55,5 @@ module.exports = {
   insertProduct,
   updateProduct,
   deleteProduct,
+  getByForQuery,
 };
