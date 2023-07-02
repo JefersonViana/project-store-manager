@@ -7,4 +7,4 @@ const checkRequiredField = (receivedField, requiredField) => {
   }
 };
 
-module.exports = checkRequiredField;
+module.exports = { checkRequiredField };

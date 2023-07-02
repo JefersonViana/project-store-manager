@@ -1,4 +1,4 @@
-const checkRequiredField = require('../utils/checkRequiredField');
+const { checkRequiredField } = require('../utils/checkRequiredField');
 
 const validateSalesProperties = (req, res, next) => {
   const { body } = req;

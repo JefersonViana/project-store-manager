@@ -1,4 +1,4 @@
-const checkRequiredField = require('../utils/checkRequiredField');
+const { checkRequiredField } = require('../utils/checkRequiredField');
 
 const validateProductName = (req, res, next) => {
   const { body } = req;
@@ -8,4 +8,4 @@ const validateProductName = (req, res, next) => {
   next();
 };
 
-module.exports = validateProductName;
+module.exports = { validateProductName };
